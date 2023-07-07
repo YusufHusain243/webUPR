@@ -13,6 +13,10 @@ class PengunjungController extends Controller
 {
     public function index()
     {
+        if (session('locale') == null) {
+            Session::put('locale', 'id');
+        }
+
         if ($locale = session('locale')) {
             app()->setLocale($locale);
         }

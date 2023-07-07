@@ -57,7 +57,7 @@ class MenuController extends Controller
                 $file_gambar = $request->logo->getClientOriginalName();
                 $file_name_asli = Str::slug(pathinfo($file_gambar, PATHINFO_FILENAME));
                 $name = uniqid() . $file_name_asli . '.' . $request->logo->getClientOriginalExtension();
-                $result = $request->logo->move(public_path('storage/images'), $name);
+                $result = $request->logo->move($_SERVER['DOCUMENT_ROOT'] . '/images', $name);
                 $result = Menu::create([
                     'menu_id' => $request->menu_id,
                     'menu_en' => $request->menu_en,
@@ -145,14 +145,14 @@ class MenuController extends Controller
             $data = Menu::findOrFail($id);
 
             if ($request->jenis_menu == 2 || $request->jenis_menu == 3) {
-                // if (file_exists(public_path('storage/images/' . $data->logo))) {
-                //     unlink(public_path('storage/images/' . $data->logo));
-                // }
                 if (isset($request->logo)) {
+                    if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/images/' . $data->logo) && isset($data->logo)) {
+                        unlink($_SERVER['DOCUMENT_ROOT'] . '/images/' . $data->logo);
+                    }
                     $file_gambar = $request->logo->getClientOriginalName();
                     $file_name_asli = Str::slug(pathinfo($file_gambar, PATHINFO_FILENAME));
                     $name = uniqid() . $file_name_asli . '.' . $request->logo->getClientOriginalExtension();
-                    $request->logo->move(public_path('storage/images'), $name);
+                    $result = $request->logo->move($_SERVER['DOCUMENT_ROOT'] . '/images', $name);
                     $result = $data->update([
                         'menu_id' => $request->menu_id,
                         'menu_en' => $request->menu_en,
@@ -195,7 +195,7 @@ class MenuController extends Controller
 
             if ($result) {
                 if ($request->page == 'Ya') {
-                    if (isset($data2)) {
+                    if (isset($data)) {
                         $result = ContentMenu::where('id_menu', $id)->update([
                             'page_id' => $request->page_id,
                             'page_en' => $request->page_en,
@@ -225,7 +225,7 @@ class MenuController extends Controller
         if ($data) {
             $result = $data->delete();
             if (isset($data->logo)) {
-                unlink(public_path('storage/images/' . $data->logo));
+                unlink($_SERVER['DOCUMENT_ROOT'] . '/images/' . $data->logo);
             }
             if ($result) {
                 return redirect('/menu')->with('MenuSuccess', 'Hapus Data Berhasil');

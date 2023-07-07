@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Edit Konten</h3>
                 </div>
-                <form method="POST" action="/edit-konten/{{$data->id}}" enctype="multipart/form-data">
+                <form method="POST" action="/edit-konten/{{ $data->id }}" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     <div class="card-body">
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <br>
-                            <img id="preview" src="{{ isset($data->foto) ? 'http://127.0.0.1:8000/storage/images/' . $data->foto : '#' }}"
+                            <img id="preview" src="{{ isset($data->foto) ? url('') . '/images/' . $data->foto : '#' }}"
                                 class="img-fluid" width="100"
                                 style="{{ isset($data->foto) ? 'display:block;' : 'display:none;' }}" />
                         </div>

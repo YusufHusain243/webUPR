@@ -2,8 +2,9 @@
     style="background-color:{{ isset($setting[0]->color) ? $setting[0]->color : '#043507' }}">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
         <a href="/" class="logo d-flex align-items-center">
-            <img src="{{ isset($setting[0]->logo) ? asset('storage/images/' . $setting[0]->logo) : '' }}" alt="Logo UPR">
-            <h1>{{ isset($setting[0]->logo) ? (session('locale') !== null && session('locale') == 'id' ? $setting[0]->name_id : $setting[0]->name_en) : '' }}
+            <img src="{{ isset($setting[0]->logo) ? url('') . '/images/' . $setting[0]->logo : '' }}"
+                alt="Logo UPR">
+            <h1>{{ isset($setting[0]) ? (session('locale') !== null && session('locale') == 'id' ? $setting[0]->name_id : $setting[0]->name_en) : '' }}
             </h1>
         </a>
         @include('components/navbar')
@@ -11,7 +12,7 @@
         <div class="position-relative">
             <div class="btn-group dropend bhs" style="top:-3px">
                 <button type="button" class="btn btn-default" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ session('locale') !== null && session('locale') == 'id' ? asset('img/id.png') : asset('img/en.png') }}"
+                    <img src="{{ session('locale') !== null ? (session('locale') == 'id' ? asset('img/id.png') : asset('img/en.png')) : asset('img/id.png') }}"
                         width="16" height="16" alt=""></a>
                 </button>
                 <ul class="dropdown-menu">

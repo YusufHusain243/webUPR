@@ -34,7 +34,7 @@
                                 @endif
 
                                 @if ($breadcrumb == 'Billboard' || $breadcrumb == 'Berita & Acara' || $breadcrumb == 'Pengumuman')
-                                    <img src="{{ asset('storage/images/' . $data->foto) }}" class="img-fluid"
+                                    <img src="{{ url('') . '/images/' . $data->foto }}" class="img-fluid"
                                         style="width: 100vw;">
                                     <hr>
                                     @if (session('locale') !== null && session('locale') == 'id')

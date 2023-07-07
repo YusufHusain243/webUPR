@@ -31,8 +31,7 @@
                                 </div>
                             </div>
                             <br>
-                            <img id="preview"
-                                src="{{ isset($data[0]) ? 'http://127.0.0.1:8000/storage/images/' . $data[0]->logo : '#' }}"
+                            <img id="preview" src="{{ isset($data[0]) ? url('') . '/images/' . $data[0]->logo : '#' }}"
                                 class="img-fluid" width="100"
                                 style="{{ isset($data[0]) ? 'display:block;' : 'display:none;' }}" />
                         </div>
@@ -47,14 +46,12 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email"
-                                placeholder="Masukkan Email"
-                                value="{{ isset($data[0]) ? $data[0]->email : '' }}" required>
+                                placeholder="Masukkan Email" value="{{ isset($data[0]) ? $data[0]->email : '' }}" required>
                         </div>
                         <div class="form-group">
                             <label for="wa">WA</label>
                             <input type="wa" class="form-control" id="wa" name="wa"
-                                placeholder="Masukkan WA"
-                                value="{{ isset($data[0]) ? $data[0]->wa : '' }}" required>
+                                placeholder="Masukkan WA" value="{{ isset($data[0]) ? $data[0]->wa : '' }}" required>
                         </div>
                     </div>
                     <div class="card-footer">

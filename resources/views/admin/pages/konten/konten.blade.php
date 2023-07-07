@@ -36,19 +36,17 @@
                                     <td>{!! $d->content_en !!}</td>
                                     <td>{{ $d->jenis }}</td>
                                     <td>
-                                        <img src="storage/images/{{ $d->foto }}" width="50" class="img-fluid">
+                                        <img src="{{ url('') . '/images/' . $d->foto }}" width="50" class="img-fluid">
                                     </td>
                                     <td>
                                         <div class="btn-group">
                                             <div>
-                                                <a href="/edit-konten/{{$d->id}}"
-                                                    class="btn btn-warning">Edit</a>
+                                                <a href="/edit-konten/{{ $d->id }}" class="btn btn-warning">Edit</a>
                                             </div>
                                             <form action="/konten/{{ $d->id }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"
-                                                    onclick="return confirm('Yakin Hapus Konten Ini?');"
+                                                <button type="submit" onclick="return confirm('Yakin Hapus Konten Ini?');"
                                                     class="btn btn-danger">
                                                     Hapus
                                                 </button>

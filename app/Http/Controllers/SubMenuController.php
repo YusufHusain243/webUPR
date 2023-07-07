@@ -14,7 +14,7 @@ class SubMenuController extends Controller
     public function index($id)
     {
         $menu = Menu::findOrFail($id);
-        $data = SubMenu::all();
+        $data = SubMenu::where('id_menu', $id)->get();
         return view('admin/pages/sub_menu/sub_menu', [
             "menu" => $menu,
             "data" => $data,
@@ -63,7 +63,7 @@ class SubMenuController extends Controller
                 $file_gambar = $request->logo->getClientOriginalName();
                 $file_name_asli = Str::slug(pathinfo($file_gambar, PATHINFO_FILENAME));
                 $name = uniqid() . $file_name_asli . '.' . $request->logo->getClientOriginalExtension();
-                $result = $request->logo->move(public_path('storage/images'), $name);
+                $result = $request->logo->move($_SERVER['DOCUMENT_ROOT'] . '/images', $name);
                 $result = SubMenu::create([
                     'id_menu' => $id,
                     'menu_id' => $request->menu_id,
@@ -155,14 +155,14 @@ class SubMenuController extends Controller
             $data = SubMenu::findOrFail($id);
 
             if ($request->jenis_menu == 2 || $request->jenis_menu == 3) {
-                // if (file_exists(public_path('storage/images/' . $data->logo))) {
-                //     unlink(public_path('storage/images/' . $data->logo));
-                // }
                 if (isset($request->logo)) {
+                    if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/images/' . $data->logo) && isset($data->logo)) {
+                        unlink($_SERVER['DOCUMENT_ROOT'] . '/images/' . $data->logo);
+                    }
                     $file_gambar = $request->logo->getClientOriginalName();
                     $file_name_asli = Str::slug(pathinfo($file_gambar, PATHINFO_FILENAME));
                     $name = uniqid() . $file_name_asli . '.' . $request->logo->getClientOriginalExtension();
-                    $request->logo->move(public_path('storage/images'), $name);
+                    $request->logo->move($_SERVER['DOCUMENT_ROOT'] . '/images', $name);
                     $result = $data->update([
                         'menu_id' => $request->menu_id,
                         'menu_en' => $request->menu_en,
@@ -205,7 +205,7 @@ class SubMenuController extends Controller
 
             if ($result) {
                 if ($request->page == 'Ya') {
-                    if (isset($data2)) {
+                    if (isset($data)) {
                         $result = ContentSubMenu::where('id_sub_menu', $id)->update([
                             'page_id' => $request->page_id,
                             'page_en' => $request->page_en,
@@ -234,8 +234,8 @@ class SubMenuController extends Controller
         $data = SubMenu::findOrFail($id);
         if ($data) {
             $result = $data->delete();
-            if (isset($data->logo)) {
-                unlink(public_path('storage/images/' . $data->logo));
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/images/' . $data->logo) && isset($data->logo)) {
+                unlink($_SERVER['DOCUMENT_ROOT'] . '/images/' . $data->logo);
             }
             if ($result) {
                 return redirect('/list-sub-menu/' . $id_menu)->with('SubMenuSuccess', 'Hapus Data Berhasil');

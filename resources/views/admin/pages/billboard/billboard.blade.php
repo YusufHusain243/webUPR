@@ -34,7 +34,7 @@
                                     <td>{!! $d->content_id !!}</td>
                                     <td>{!! $d->content_en !!}</td>
                                     <td>
-                                        <img src="/storage/images/{{ $d->foto }}" width="100px">
+                                        <img src="{{ url('') . '/images/' . $d->foto }}" width="100px">
                                     </td>
                                     <td>
                                         <div class="btn-group">

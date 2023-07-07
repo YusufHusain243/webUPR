@@ -18,13 +18,13 @@
                                     @if ($breadcrumb === 'Berita & Acara')
                                         <a href="/rilis/{{ session('locale') !== null && session('locale') == 'id' ? $item->slug_id : $item->slug_en }}"
                                             class="me-4 thumbnail">
-                                            <img src="{{ asset('storage/images/' . $item->foto) }}" class="img-fluid"
+                                            <img src="{{ url('') . '/images/' . $item->foto }}" class="img-fluid"
                                                 style="height:250px; object-fit: cover;">
                                         </a>
                                     @else
                                         <a href="/{{ strtolower($breadcrumb) }}/{{ session('locale') !== null && session('locale') == 'id' ? $item->slug_id : $item->slug_en }}""
                                             class="me-4 thumbnail">
-                                            <img src="{{ asset('storage/images/' . $item->foto) }}" class="img-fluid"
+                                            <img src="{{ url('') . '/images/' . $item->foto }}" class="img-fluid"
                                                 style="height:250px; object-fit: cover;">
                                         </a>
                                     @endif

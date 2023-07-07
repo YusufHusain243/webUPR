@@ -12,7 +12,7 @@
                                     <div class="swiper-slide">
                                         <a href="/billboard/{{ session('locale') !== null && session('locale') == 'id' ? $item->slug_id : $item->slug_en }}"
                                             class="img-bg d-flex align-items-end"
-                                            style="background-image: url({{ asset('storage/images/' . $item->foto) }});">
+                                            style="background-image: url({{ url('') . '/images/' . $item->foto }});">
                                             <div class="img-bg-inner">
                                                 <h2>{{ session('locale') !== null && session('locale') == 'id' ? $item->judul_id : $item->judul_en }}
                                                 </h2>
@@ -54,10 +54,10 @@
                                     href="{{ session('locale') !== null && session('locale') == 'id' ? $m->url_id : $m->url_en }}">
                                     <div class="card shadow-sm rounded-0">
                                         <div class="card-body text-center">
-                                            <img src="{{ asset('storage/images/' . $m->logo) }}"
+                                            <img src="{{ url('') . '/images/' . $m->logo }}"
                                                 class="text-center img-fluid mb-3" style="height: 100px; object-fit:cover;">
                                             <h4 class="text-center">
-                                                <strong>{{ session('locale') !== null && session('locale') == 'id' ? $m->menu_id : $m->menu_en }}</strong>
+                                                <strong>{{ session('locale') !== null && session('locale') == 'id' ? strtoupper($m->menu_id) : strtoupper($m->menu_en) }}</strong>
                                             </h4>
                                         </div>
                                     </div>
@@ -73,11 +73,11 @@
                                             href="{{ session('locale') !== null && session('locale') == 'id' ? $mts->url_id : $mts->url_en }}">
                                             <div class="card shadow-sm rounded-0">
                                                 <div class="card-body text-center">
-                                                    <img src="{{ asset('storage/images/' . $mts->logo) }}"
+                                                    <img src="{{ url('') . '/images/' . $mts->logo }}"
                                                         class="text-center img-fluid mb-3"
                                                         style="height: 100px; object-fit:cover;">
                                                     <h4 class="text-center">
-                                                        <strong>{{ session('locale') !== null && session('locale') == 'id' ? $mts->menu_id : $mts->menu_en }}</strong>
+                                                        <strong>{{ session('locale') !== null && session('locale') == 'id' ? strtoupper($mts->menu_id) : strtoupper($mts->menu_en) }}</strong>
                                                     </h4>
                                                 </div>
                                             </div>
@@ -108,7 +108,7 @@
                                     <div class="card shadow-sm rounded-0">
                                         <div class="card-body">
                                             <picture>
-                                                <img src="{{ asset('storage/images/' . $r->foto) }}" class="img-fluid"
+                                                <img src="{{ url('') . '/images/' . $r->foto }}" class="img-fluid"
                                                     style="height:250px; width:100%; object-fit: cover;">
                                             </picture>
                                             <h5 style="margin-top:10px">
@@ -141,7 +141,7 @@
                                     <div class="card shadow-sm rounded-0">
                                         <div class="card-body">
                                             <picture>
-                                                <img src="{{ asset('storage/images/' . $p->foto) }}" class="img-fluid"
+                                                <img src="{{ url('') . '/images/' . $p->foto }}" class="img-fluid"
                                                     style="height:250px; width:100%; object-fit: cover;">
                                             </picture>
                                             <h5 style="margin-top:10px">

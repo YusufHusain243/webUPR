@@ -49,7 +49,8 @@ class BillboardController extends Controller
                 $file_gambar = $request->foto->getClientOriginalName();
                 $file_name_asli = Str::slug(pathinfo($file_gambar, PATHINFO_FILENAME));
                 $name = uniqid() . $file_name_asli . '.' . $request->foto->getClientOriginalExtension();
-                $result = $request->foto->move(public_path('storage/images'), $name);
+                // $result = $request->foto->move(public_path('storage/images'), $name);
+                $result = $request->foto->move($_SERVER['DOCUMENT_ROOT'] . '/images', $name);
             }
 
             $result = Billboard::create([
@@ -100,15 +101,15 @@ class BillboardController extends Controller
         if ($validator) {
             $data = Billboard::findOrFail($id);
             if (isset($request->foto)) {
-                
-                if (file_exists(public_path('storage/images/' . $data->foto))) {
-                    unlink(public_path('storage/images/' . $data->foto));
+
+                if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/images/' . $data->foto) && isset($data->foto)) {
+                    unlink($_SERVER['DOCUMENT_ROOT'] . '/images/' . $data->foto);
                 }
 
                 $file_gambar = $request->foto->getClientOriginalName();
                 $file_name_asli = Str::slug(pathinfo($file_gambar, PATHINFO_FILENAME));
                 $name = uniqid() . $file_name_asli . '.' . $request->foto->getClientOriginalExtension();
-                $request->foto->move(public_path('storage/images'), $name);
+                $request->foto->move($_SERVER['DOCUMENT_ROOT'] . '/images', $name);
 
                 $result = $data->update([
                     'judul_id' => $request->judul_id,
@@ -147,7 +148,9 @@ class BillboardController extends Controller
         $data = Billboard::findOrFail($id);
         if ($data) {
             $result = $data->delete();
-            unlink(public_path('storage/images/' . $data->foto));
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/images/' . $data->foto) && isset($data->foto)) {
+                unlink($_SERVER['DOCUMENT_ROOT'] . '/images/' . $data->foto);
+            }
             if ($result) {
                 return redirect('/billboard')->with('BillboardSuccess', 'Hapus Data Berhasil');
             }

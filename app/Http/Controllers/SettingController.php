@@ -53,7 +53,7 @@ class SettingController extends Controller
                     $file_gambar = $request->logo->getClientOriginalName();
                     $file_name_asli = Str::slug(pathinfo($file_gambar, PATHINFO_FILENAME));
                     $name = uniqid() . $file_name_asli . '.' . $request->logo->getClientOriginalExtension();
-                    $result = $request->logo->move(public_path('storage/images'), $name);
+                    $result = $request->logo->move($_SERVER['DOCUMENT_ROOT'] . '/images', $name);
                 }
 
                 $result = Setting::create([
@@ -68,7 +68,9 @@ class SettingController extends Controller
                 if ($result) {
                     return redirect('/setting')->with('SettingSuccess', 'Tambah Setting Berhasil');
                 }
-                unlink(public_path('storage/images/' . $name));
+                if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/images/' . $name)) {
+                    unlink($_SERVER['DOCUMENT_ROOT'] . '/images/' . $name);
+                }
                 return redirect('/setting')->with('SettingError', 'Tambah Setting Gagal');
             }
         }
@@ -78,14 +80,14 @@ class SettingController extends Controller
     {
         if (isset($request->logo)) {
 
-            if (file_exists(public_path('storage/images/' . $data->logo))) {
-                unlink(public_path('storage/images/' . $data->logo));
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/images/' . $data->logo) && isset($data->logo)) {
+                unlink($_SERVER['DOCUMENT_ROOT'] . '/images/' . $data->logo);
             }
 
             $file_gambar = $request->logo->getClientOriginalName();
             $file_name_asli = Str::slug(pathinfo($file_gambar, PATHINFO_FILENAME));
             $name = uniqid() . $file_name_asli . '.' . $request->logo->getClientOriginalExtension();
-            $request->logo->move(public_path('storage/images'), $name);
+            $request->logo->move($_SERVER['DOCUMENT_ROOT'] . '/images', $name);
 
             $result = $data->update([
                 'name_id' => $request->name_id,
@@ -99,7 +101,9 @@ class SettingController extends Controller
             if ($result) {
                 return true;
             }
-            unlink(public_path('storage/images/' . $name));
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/images/' . $name)) {
+                unlink($_SERVER['DOCUMENT_ROOT'] . '/images/' . $name);
+            }
             return false;
         } else {
             $result = $data->update([

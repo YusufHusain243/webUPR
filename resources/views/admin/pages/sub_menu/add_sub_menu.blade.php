@@ -113,8 +113,8 @@
 
                 var menu_id = convertToSlug(document.getElementById("menu_id").value);
                 var menu_en = convertToSlug(document.getElementById("menu_en").value);
-                document.getElementById("url_id").value = "http://127.0.0.1:8000/sub-menu/" + menu_id;
-                document.getElementById("url_en").value = "http://127.0.0.1:8000/sub-menu/" + menu_en;
+                document.getElementById("url_id").value = "https://s3-manajemen.upr.ac.id/sub-menu/" + menu_id;
+                document.getElementById("url_en").value = "https://s3-manajemen.upr.ac.id/sub-menu/" + menu_en;
             } else {
                 document.getElementById("input_page_id").style.display = "none";
                 document.getElementById("input_page_en").style.display = "none";
