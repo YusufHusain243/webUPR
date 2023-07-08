@@ -159,6 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
+        App\Providers\BillboardServiceProvider::class,
 
         /*
          * Application Service Providers...
